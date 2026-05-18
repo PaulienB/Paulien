@@ -1,16 +1,51 @@
-# React + Vite
+# Kurk
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Persoonlijke wijnvoorraad als iPhone-PWA. Vite + React, data in `localStorage`, CSV-export/import voor backup.
 
-Currently, two official plugins are available:
+## Lokaal draaien
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+## Build
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run build       # output in dist/
+npm run preview     # serveer de build lokaal
+```
 
-## Expanding the ESLint configuration
+## Live
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Wordt automatisch gedeployed naar GitHub Pages via `.github/workflows/deploy.yml` op pushes naar `claude/setup-vite-react-wine-xhTDp` of `main`.
+
+URL: https://paulienb.github.io/Paulien/
+
+**Eenmalige setup in GitHub**: Settings → Pages → Build and deployment → Source: **GitHub Actions**.
+
+## Iconen regenereren
+
+```bash
+node scripts/generate-icons.mjs
+```
+
+## Verhuizen naar een eigen repo / custom domain
+
+De Vite `base` is configureerbaar via env-var:
+
+```bash
+# bij een eigen repo "kurk":
+VITE_BASE=/kurk/ npm run build
+
+# bij custom domain in root:
+VITE_BASE=/ npm run build
+```
+
+Update ook `start_url`, `scope` en `id` in `public/manifest.webmanifest`, en pas de branch in `.github/workflows/deploy.yml` aan.
+
+## iPhone installeren
+
+1. Open de URL in **Safari** (niet Chrome).
+2. Tik op delen-icoon → **Zet op beginscherm**.
+3. Open vanaf het beginscherm — draait als standalone app.
